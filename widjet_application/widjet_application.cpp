@@ -6,79 +6,77 @@
 #include <QStringList>
 #include <QDir>
 
-widjet_application::widjet_application(QWidget* parent)
-    : QMainWindow(parent)
-{
+widjet_application::widjet_application(QWidget* parent) : QMainWindow(parent) {
     ui.setupUi(this);
 }
 
 void widjet_application::Click_to_info() {
-    // òòòò òòòòòò òòòòòòò
-    QString path = ui.enter->text();//òòòòòòòò òòòò
-    QDir directory(path);//òòòòòòò òòòòò òòòòòòòòòò
-    if (!directory.exists()) {// òòòòòòòòò òòòòòòòòòòòò
-        ui.output->setText(QString::fromLocal8Bit("Error Path"));// òòòò òò òòòòòòòòò òòòòòò òòò òòòòòò
+
+    QString path = ui.enter->text();  // –ü–æ–ª—É—á–∞–µ–º –ø—É—Ç—å –∏–∑ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—å—Å–∫–æ–≥–æ –≤–≤–æ–¥–∞
+    QDir directory(path);  // –°–æ–∑–¥–∞–µ–º –æ–±—ä–µ–∫—Ç QDir –¥–ª—è —Ä–∞–±–æ—Ç—ã —Å –ø–∞–ø–∫–æ–π
+    if (!directory.exists()) {
+        ui.output->setText(QString::fromLocal8Bit("Error path"));  // –í—ã–≤–æ–¥–∏–º —Å–æ–æ–±—â–µ–Ω–∏–µ –æ–± –æ—à–∏–±–∫–µ, –µ—Å–ª–∏ –ø–∞–ø–∫–∞ –Ω–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç
         return;
     }
 
-    QStringList fileInfos;//òòòòòòò òòòòòò òòòòòòòòòò ò òòòòòò
-    QStringList fileList = directory.entryList(QDir::Files | QDir::NoDotAndDotDot);
-    //òòòòòòò òòòò òòòòòò
-    for (const QString& fileName : fileList) {//òòòòòòò òòòòòò òòòò
-        QFileInfo fileInfo(directory, fileName);//òòòòòòò òòòòòòòòòò ò òòòòò
-        QString fileInfoStr = fileInfo.baseName() + "\t" +
-            fileInfo.completeSuffix() + "\t" +
-            fileInfo.lastModified().toString("dd.MM.yyyy") + "\t";//òòòòòòòòò òòòòòòòòòò ò òòòòòòòòòòò
+    QStringList fileInfos;  // –°–æ–∑–¥–∞–µ–º —Å–ø–∏—Å–æ–∫ –¥–ª—è —Ö—Ä–∞–Ω–µ–Ω–∏—è –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–∏ –æ —Ñ–∞–π–ª–∞—Ö
+    QStringList fileList = directory.entryList(QDir::Files | QDir::NoDotAndDotDot);  // –ü–æ–ª—É—á–∞–µ–º —Å–ø–∏—Å–æ–∫ —Ñ–∞–π–ª–æ–≤ –≤ –ø–∞–ø–∫–µ
+    for (const QString& fileName : fileList) {
+        QFileInfo fileInfo(directory, fileName);  // –°–æ–∑–¥–∞–µ–º –æ–±—ä–µ–∫—Ç QFileInfo –¥–ª—è –∫–∞–∂–¥–æ–≥–æ —Ñ–∞–π–ª–∞
+
+        QString fileInfoStr = fileInfo.baseName() + "\t" +  // –ü–æ–ª—É—á–∞–µ–º –Ω–∞–∑–≤–∞–Ω–∏–µ —Ñ–∞–π–ª–∞ –±–µ–∑ —Ä–∞—Å—à–∏—Ä–µ–Ω–∏—è
+            fileInfo.completeSuffix() + "\t" +  // –ü–æ–ª—É—á–∞–µ–º —Ä–∞—Å—à–∏—Ä–µ–Ω–∏–µ —Ñ–∞–π–ª–∞
+            fileInfo.lastModified().toString("dd.MM.yyyy") + "\t";  // –ü–æ–ª—É—á–∞–µ–º –¥–∞—Ç—É –ø–æ—Å–ª–µ–¥–Ω–µ–≥–æ –∏–∑–º–µ–Ω–µ–Ω–∏—è —Ñ–∞–π–ª–∞
 
         if (fileInfo.isReadable()) {
-            fileInfoStr += "R";//òòòò òòòò òòòòòòòò
+            fileInfoStr += "R";  // –ï—Å–ª–∏ —Ñ–∞–π–ª —á–∏—Ç–∞–µ–º—ã–π, –¥–æ–±–∞–≤–ª—è–µ–º "R"
         }
         if (fileInfo.isSymLink()) {
-            fileInfoStr += "S";//òòòò òòòò òòòòòòòòò
+            fileInfoStr += "S";  // –ï—Å–ª–∏ —Ñ–∞–π–ª —è–≤–ª—è–µ—Ç—Å—è —Å–∏–º–≤–æ–ª–∏—á–µ—Å–∫–æ–π —Å—Å—ã–ª–∫–æ–π, –¥–æ–±–∞–≤–ª—è–µ–º "S"
         }
         if (fileInfo.isHidden()) {
-            fileInfoStr += "H";//òòòò òòòò òòòòòòò
+            fileInfoStr += "H";  // –ï—Å–ª–∏ —Ñ–∞–π–ª —Å–∫—Ä—ã—Ç—ã–π, –¥–æ–±–∞–≤–ª—è–µ–º "H"
         }
         if (fileInfo.isDir()) {
-            fileInfoStr += "D";//òòòò òòòò òòòòòòòòòò 
+            fileInfoStr += "D";  // –ï—Å–ª–∏ —Ñ–∞–π–ª —è–≤–ª—è–µ—Ç—Å—è –ø–∞–ø–∫–æ–π, –¥–æ–±–∞–≤–ª—è–µ–º "D"
         }
         if (!fileInfo.isWritable()) {
-            fileInfoStr += "W";//òòòò ò òòòò òòòòò òòòòòòòòò òòò-òò
+            fileInfoStr += "W";  // –ï—Å–ª–∏ —Ñ–∞–π–ª —Ç–æ–ª—å–∫–æ –¥–ª—è —á—Ç–µ–Ω–∏—è, –¥–æ–±–∞–≤–ª—è–µ–º "W"
         }
 
-        fileInfos.append(fileInfoStr);//òòòòòòòò òòòòòòòòòò òò òòòòò òòòòò ò òòòòò
+        fileInfos.append(fileInfoStr);  // –î–æ–±–∞–≤–ª—è–µ–º —Å—Ç—Ä–æ–∫—É —Å –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–µ–π –æ —Ñ–∞–π–ª–µ –≤ —Å–ø–∏—Å–æ–∫
     }
-    QString out;//òòòòò òòòòòò
+    QString out;
     for (auto i : fileInfos) {
         out += i;
-        out += '\n';//òòòòòòòòòòò òò òòòòòò ò òòòòòòòòò ò òòòòò
+        out += '\n';
     }
-    ui.output->setText(out);//òòòòòòò ò òòòòòò òòòòò
-
+    ui.output->setText(out);  // –í—ã–≤–æ–¥–∏–º –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏—é –æ —Ñ–∞–π–ª–∞—Ö –≤ –≤–∏–¥–∂–µ—Ç
 
 }
 
 void widjet_application::Click_to_description() {
-    QString path = ui.enter->text();//òòòòòòòòòòò òòòò
-    QDir directory(path);//òòòòòòòòòò òòòòò òò òòòòòòò
-    if (!directory.exists()) {// òòòòòòòòò òòòòòòòòòòòò
-        ui.output->setText(QString::fromLocal8Bit("Error Path"));// òòòò òò òòòòòòòòò òòòòòò òòò òòòòòò
+    QString path = ui.enter->text();  // –ü–æ–ª—É—á–∞–µ–º –ø—É—Ç—å –∏–∑ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—å—Å–∫–æ–≥–æ –≤–≤–æ–¥–∞
+    QDir directory(path);  // –°–æ–∑–¥–∞–µ–º –æ–±—ä–µ–∫—Ç QDir –¥–ª—è —Ä–∞–±–æ—Ç—ã —Å –ø–∞–ø–∫–æ–π
+    if (!directory.exists()) {
+        ui.output->setText(QString::fromLocal8Bit("Error path"));  // –í—ã–≤–æ–¥–∏–º —Å–æ–æ–±—â–µ–Ω–∏–µ –æ–± –æ—à–∏–±–∫–µ, –µ—Å–ª–∏ –ø–∞–ø–∫–∞ –Ω–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç
         return;
     }
 
-    QStringList fileList = directory.entryList(QDir::Files | QDir::NoDotAndDotDot);//òòòòò òòòòòòòòòò òòòòòò
-    for (const QString& fileName : fileList) {//òòòòòòòòòòò òò òòòòòò
-        QFileInfo fileInfo(directory, fileName);
+    QStringList fileList = directory.entryList(QDir::Files | QDir::NoDotAndDotDot);  // –ü–æ–ª—É—á–∞–µ–º —Å–ø–∏—Å–æ–∫ —Ñ–∞–π–ª–æ–≤ –≤ –ø–∞–ø–∫–µ
+    for (const QString& fileName : fileList) {
+        QFileInfo
+            fileInfo(directory, fileName);  // –°–æ–∑–¥–∞–µ–º –æ–±—ä–µ–∫—Ç QFileInfo –¥–ª—è –∫–∞–∂–¥–æ–≥–æ —Ñ–∞–π–ª–∞
 
-        if (fileInfo.suffix().toLower() == "jpg") {
-            if (fileInfo.size() > (1024 * 1024)) {// òòòò òòòòòò 1 òòòòòòòòò
-                QString newFileName = fileInfo.completeBaseName() + "&." + fileInfo.suffix();//òòòòòòòò òòòòò òòò
-                QString newPath = directory.absoluteFilePath(newFileName);//òòòòòòòòò
-                std::filesystem::rename(fileInfo.absoluteFilePath().toStdString(), newPath.toStdString());//òòòòòò
-                QFile::rename(fileInfo.absoluteFilePath(), newPath);//òòòòòòò
+        if (fileInfo.suffix().toLower() == "jpg") {  // –ü—Ä–æ–≤–µ—Ä—è–µ–º, —è–≤–ª—è–µ—Ç—Å—è –ª–∏ —Ä–∞—Å—à–∏—Ä–µ–Ω–∏–µ —Ñ–∞–π–ª–∞ "jpg"
+            if (fileInfo.size() > (1024 * 1024)) {  // –ü—Ä–æ–≤–µ—Ä—è–µ–º, –ø—Ä–µ–≤—ã—à–∞–µ—Ç –ª–∏ —Ä–∞–∑–º–µ—Ä —Ñ–∞–π–ª–∞ 1 –º–µ–≥–∞–±–∞–π—Ç (1 –º–µ–≥–∞–±–∞–π—Ç = 1024 * 1024 –±–∞–π—Ç)
+                QString newFileName = fileInfo.completeBaseName() + "&." + fileInfo.suffix();  // –°–æ–∑–¥–∞–µ–º –Ω–æ–≤–æ–µ –∏–º—è —Ñ–∞–π–ª–∞, –¥–æ–±–∞–≤–ª—è—è "&" –≤ –∫–æ–Ω–µ—Ü
+                QString newPath = directory.absoluteFilePath(newFileName);  // –ü–æ–ª—É—á–∞–µ–º –ø–æ–ª–Ω—ã–π –ø—É—Ç—å –∫ –Ω–æ–≤–æ–º—É —Ñ–∞–π–ª—É
+                std::filesystem::rename(fileInfo.absoluteFilePath().toStdString(), newPath.toStdString());  // –ü–µ—Ä–µ–∏–º–µ–Ω–æ–≤—ã–≤–∞–µ–º —Ñ–∞–π–ª —Å –ø–æ–º–æ—â—å—é std::filesystem
+                QFile::rename(fileInfo.absoluteFilePath(), newPath);  // –ü–µ—Ä–µ–∏–º–µ–Ω–æ–≤—ã–≤–∞–µ–º —Ñ–∞–π–ª —Å –ø–æ–º–æ—â—å—é QFile
             }
         }
     }
 }
-widjet_application::~widjet_application()
-{}
+
+widjet_application::~widjet_application() {}
